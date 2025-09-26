@@ -19,6 +19,7 @@ function App() {
     setTaskState({tasks});
     console.log(`${taskIndex} ${tasks[taskIndex].done}`);
   }
+  const delete
 
     return (
     <div className="container">

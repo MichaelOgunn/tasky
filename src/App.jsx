@@ -16,7 +16,8 @@ function App() {
 const [ formState, setFormState ] = useState({
     title: "",
     description: "",
-    deadline: ""
+    deadline: "",
+    priority: ""
   });
   
 
@@ -26,6 +27,12 @@ const [ formState, setFormState ] = useState({
     setTaskState({tasks});
     console.log(`${taskIndex} ${tasks[taskIndex].done}`);
   }
+  const priorityHandler = (event) => {
+    let form = {...formState};
+    form.priority = event.target.value;
+    setFormState(form);
+  }
+    
   const deleteHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks.splice(taskIndex, 1);
@@ -44,6 +51,9 @@ const [ formState, setFormState ] = useState({
       case "deadline":
           form.deadline = event.target.value;
           break;
+      case "priority":
+          form.priority = event.target.value;
+          break;  // Added this case to handle priority selection in the form submission
       default:
           form = formState;
     }
@@ -72,6 +82,7 @@ const [ formState, setFormState ] = useState({
       title={task.title}
       description={task.description}
       deadline={task.deadline}
+      priority={task.priority}  // Added this prop to the Task component to display priority in the task details displayx
       key={task.id}
       done={task.done}  // Added this prop to the Task component
       markDone= {() => doneHandler(index)}

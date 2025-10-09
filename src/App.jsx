@@ -1,6 +1,7 @@
 import './App.css';
 import Task from './components/Task';
 import React,{useState} from 'react';
+import AddTaskForm from './components/Form';
 
 function App() {
     const [ taskState, setTaskState ] = useState({
@@ -11,7 +12,26 @@ function App() {
     ]
   });
 
+  const formChangeHandler = (event) => {
+    let form = {...formState};
 
+    switch(event.target.name) {
+      case "title":
+          form.title = event.target.value;
+          break;
+      case "description":
+          form.description = event.target.value;
+          break;
+      case "deadline":
+          form.deadline = event.target.value;
+          break;
+      default:
+          form = formState;
+    }
+    setFormState(form);
+    console.log(formState);
+  }
+  
 
   const doneHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
@@ -24,6 +44,12 @@ function App() {
     tasks.splice(taskIndex, 1);
     setTaskState({tasks});
   }
+    const [ formState, setFormState ] = useState({
+    title: "",
+    description: "",
+    deadline: ""
+  });
+
 
     return (
     <div className="container">
@@ -40,7 +66,7 @@ function App() {
     />
 
   ))} 
-
+      <AddTaskForm change={formChangeHandler} />
     </div>
   );
 
